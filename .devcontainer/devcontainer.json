@@ -10,5 +10,13 @@
 		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
 		"python.linting.pylintPath": "/usr/local/bin/pylint"
-	}
+	},
+	// Uncomment the next line if you want to publish any ports.
+	"appPort": [ "63001:22" ],
+	// set hostname on running container
+	"runArgs": [ "--hostname", "console-collection" ],
+	// Uncomment the next line to run commands after the container is created.
+	// "postCreateCommand": "",
+	// Uncomment the next line to run commands after the container is attatched.
+	"postStartCommand": "screen -wipe; screen -s /bin/bash -dmS code; service ssh restart",
 }
