@@ -35,7 +35,7 @@ FortiGate:
   FortiGate-VM (KVM), FOS version 6.0/6.2/6.4
 
 FortiManager:
-  FortiManager-VM (KVM), FMG version 6.0/6.2/6.4
+  FortiManager-VM (KVM), FMG version 6.0/6.2/6.4cd .
 
 
 __Note__: Use `-f` option (i.e. `ansible-galaxy collection install -f fortinet.console:x.x.x`) to renew your existing local installation.
@@ -59,6 +59,8 @@ Create `fortigate_factoryreset.yml` with the following template:
 ---
 - name: Fortinet Console Example Playbook - User Remote Console Server to Factory Reset FortiGate Firewall
   hosts: fortigate01
+  connection: local
+  gather_facts: False
   collections:
     - fortinet.console
   tasks:
@@ -72,9 +74,10 @@ Create `fortigate_factoryreset.yml` with the following template:
       rcs_fgt_password: "{{ dev_password }}"
       rcs_fgt_become: "{{ term_become|default(omit) }}"
       rcs_fgt_action: "factoryreset"
-  register: fortigate_remote_console_result
+    register: fortigate_remote_console_result
+    delegate_to: localhost
   - debug:
-    msg: "{{ fortigate_remote_console_result }}"
+      msg: "{{ fortigate_remote_console_result }}"
 ```
 Create the `hosts` inventory file
 ```
